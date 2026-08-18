@@ -128,4 +128,18 @@ public class Main {
             System.out.println(l);
         }
     }
+
+    public static void buscarLibro() {
+        System.out.println("\n--- BUSCAR LIBRO ---");
+        System.out.print("Ingrese el código del libro: ");
+        String codigo = sc.nextLine();
+
+        for (Libro l : libros) {
+            if (l.getCodigo().equals(codigo)) {
+                System.out.println("Libro encontrado: " + l);
+                return;
+            }
+        }
+        System.out.println("Libro no encontrado.");
+    }
 }
