@@ -38,4 +38,17 @@ public class Main {
             System.out.println(c);
         }
     }
+
+    public static void buscarCliente() {
+        System.out.println("\n--- BUSCAR CLIENTE ---");
+        System.out.print("Ingrese el ID del cliente: ");
+        String id = sc.nextLine();
+        for (Cliente c : clientes) {
+            if (c.getId().equals(id)) {
+                System.out.println("Cliente encontrado: " + c);
+                return;
+            }
+        }
+        System.out.println("Cliente no encontrado.");
+    }
 }
