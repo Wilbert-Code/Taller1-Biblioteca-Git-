@@ -271,4 +271,41 @@ public class Main {
         System.out.println("📖 Libro: " + libro.getTitulo());
         System.out.println("📅 Fecha de préstamo: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
+
+    public static void registrarDevolucion() {
+        System.out.println("\n--- REGISTRAR DEVOLUCIÓN ---");
+
+        // Mostrar préstamos activos
+        ArrayList<Prestamo> activos = new ArrayList<>();
+        for (Prestamo p : prestamos) {
+            if (!p.isDevuelto()) {
+                activos.add(p);
+            }
+        }
+
+        if (activos.isEmpty()) {
+            System.out.println("❌ No hay préstamos activos para devolver.");
+            return;
+        }
+
+        System.out.println("\n--- PRÉSTAMOS ACTIVOS ---");
+        for (Prestamo p : activos) {
+            System.out.println(p.toResumen());
+        }
+
+        System.out.print("\nIngrese el ID del préstamo a devolver: ");
+        String idPrestamo = sc.nextLine();
+
+        for (Prestamo p : prestamos) {
+            if (p.getIdPrestamo().equals(idPrestamo) && !p.isDevuelto()) {
+                p.registrarDevolucion();
+                System.out.println("✅ Devolución registrada exitosamente.");
+                System.out.println("📅 Fecha de devolución: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                System.out.println("📚 Libro devuelto: " + p.getLibro().getTitulo());
+                return;
+            }
+        }
+        System.out.println("❌ Préstamo no encontrado o ya fue devuelto.");
+    }
+
 }
