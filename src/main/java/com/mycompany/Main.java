@@ -308,4 +308,18 @@ public class Main {
         System.out.println("❌ Préstamo no encontrado o ya fue devuelto.");
     }
 
+    public static void listarPrestamosActivos() {
+        System.out.println("\n--- PRÉSTAMOS ACTIVOS ---");
+        boolean hayActivos = false;
+        for (Prestamo p : prestamos) {
+            if (!p.isDevuelto()) {
+                System.out.println(p);
+                hayActivos = true;
+            }
+        }
+        if (!hayActivos) {
+            System.out.println("No hay préstamos activos.");
+        }
+    }
+
 }
