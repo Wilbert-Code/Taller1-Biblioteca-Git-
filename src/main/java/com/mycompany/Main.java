@@ -142,4 +142,44 @@ public class Main {
         }
         System.out.println("Libro no encontrado.");
     }
+
+    public static void actualizarLibro() {
+        System.out.println("\n--- ACTUALIZAR LIBRO ---");
+        System.out.print("Ingrese el código del libro a actualizar: ");
+        String codigo = sc.nextLine();
+
+        for (Libro l : libros) {
+            if (l.getCodigo().equals(codigo)) {
+                System.out.print("Nuevo título (dejar vacío para no cambiar): ");
+                String titulo = sc.nextLine();
+                if (!titulo.isEmpty()) l.setTitulo(titulo);
+
+                System.out.print("Nuevo autor (dejar vacío para no cambiar): ");
+                String autor = sc.nextLine();
+                if (!autor.isEmpty()) l.setAutor(autor);
+
+                System.out.print("Nuevo año de publicación (0 para no cambiar): ");
+                int anio = sc.nextInt();
+                sc.nextLine();
+                if (anio != 0) l.setAnioPublicacion(anio);
+
+                System.out.print("Nuevo ISBN (dejar vacío para no cambiar): ");
+                String isbn = sc.nextLine();
+                if (!isbn.isEmpty()) l.setIsbn(isbn);
+
+                System.out.print("Nuevo número de páginas (0 para no cambiar): ");
+                int paginas = sc.nextInt();
+                sc.nextLine();
+                if (paginas != 0) l.setNumeroPaginas(paginas);
+
+                System.out.print("Nuevo género (dejar vacío para no cambiar): ");
+                String genero = sc.nextLine();
+                if (!genero.isEmpty()) l.setGenero(genero);
+
+                System.out.println("✅ Libro actualizado correctamente.");
+                return;
+            }
+        }
+        System.out.println("Libro no encontrado.");
+    }
 }
