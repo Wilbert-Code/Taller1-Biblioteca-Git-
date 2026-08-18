@@ -8,11 +8,13 @@ import java.util.Scanner;
 public class Main {
     static ArrayList<Cliente> clientes = new ArrayList<>();
     static ArrayList<Libro> libros = new ArrayList<>();
+    static ArrayList<Prestamo> prestamos = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
-    private static int contadorPrestamos;
+    private static int contadorPrestamos = 1;
 
     public static void main(String[] args) {
         System.out.println("Sistema de Biblioteca - Gestión de Clientes");
+        menuPrincipal();
     }
 
 
@@ -260,10 +262,9 @@ public class Main {
             return;
         }
 
-        // Crear el préstamo
         String idPrestamo = "P" + String.format("%04d", contadorPrestamos++);
         Prestamo prestamo = new Prestamo(idPrestamo, cliente, libro);
-        prestamo.add(prestamo);
+        //prestamo.add(prestamos);
 
         System.out.println("✅ Préstamo registrado exitosamente.");
         System.out.println("📋 ID del préstamo: " + idPrestamo);
@@ -320,6 +321,165 @@ public class Main {
         if (!hayActivos) {
             System.out.println("No hay préstamos activos.");
         }
+    }
+    public static void menuPrincipal(){
+    int opcion;
+        do{
+        System.out.println("\n╔══════════════════════════════════════════════════════════╗");
+        System.out.println("║            SISTEMA DE GESTIÓN DE BIBLIOTECA              ║");
+        System.out.println("║               BIBLIOTECA MUNICIPAL DE VALLEDUPAR          ║");
+        System.out.println("╠══════════════════════════════════════════════════════════╣");
+        System.out.println("║                                                          ║");
+        System.out.println("║  📋 1. GESTIÓN DE CLIENTES                              ║");
+        System.out.println("║  📚 2. GESTIÓN DE LIBROS                                ║");
+        System.out.println("║  📖 3. GESTIÓN DE PRÉSTAMOS                             ║");
+        System.out.println("║  🚪 4. SALIR                                            ║");
+        System.out.println("║                                                          ║");
+        System.out.println("╚══════════════════════════════════════════════════════════╝");
+        System.out.print("➡️  Seleccione una opción: ");
+
+        opcion = sc.nextInt();
+        sc.nextLine();
+
+        switch (opcion) {
+            case 1:
+                menuClientes();
+                break;
+            case 2:
+                menuLibros();
+                break;
+            case 3:
+                menuPrestamos();
+                break;
+            case 4:
+                System.out.println("\n✅ Saliendo del sistema... ¡Hasta luego!");
+                System.out.println("   📚 ¡Gracias por usar la Biblioteca Municipal de Valledupar!");
+                break;
+            default:
+                System.out.println("\n❌ Opción no válida. Intente nuevamente.");
+        }
+    } while(opcion !=4);}
+
+
+    public static void menuClientes() {
+        int opcion;
+        do {
+            System.out.println("\n╔════════════════════════════════════════════╗");
+            System.out.println("║         GESTIÓN DE CLIENTES                ║");
+            System.out.println("╠════════════════════════════════════════════╣");
+            System.out.println("║  1. 👤 Crear cliente                       ║");
+            System.out.println("║  2. 📋 Listar clientes                     ║");
+            System.out.println("║  3. 🔍 Buscar cliente por ID               ║");
+            System.out.println("║  4. ✏️  Actualizar cliente                  ║");
+            System.out.println("║  5. 🗑️  Eliminar cliente                   ║");
+            System.out.println("║  6. ↩️  Volver al menú principal           ║");
+            System.out.println("╚════════════════════════════════════════════╝");
+            System.out.print("➡️  Seleccione una opción: ");
+
+            opcion = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    crearCliente();
+                    break;
+                case 2:
+                    listarClientes();
+                    break;
+                case 3:
+                    buscarCliente();
+                    break;
+                case 4:
+                    actualizarCliente();
+                    break;
+                case 5:
+                    eliminarCliente();
+                    break;
+                case 6:
+                    System.out.println("\n↩️  Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("\n❌ Opción no válida.");
+            }
+        } while (opcion != 6);
+    }
+
+    public static void menuLibros() {
+        int opcion;
+        do {
+            System.out.println("\n╔════════════════════════════════════════════╗");
+            System.out.println("║         GESTIÓN DE LIBROS                  ║");
+            System.out.println("╠════════════════════════════════════════════╣");
+            System.out.println("║  1. 📚 Crear libro                         ║");
+            System.out.println("║  2. 📋 Listar libros                       ║");
+            System.out.println("║  3. 🔍 Buscar libro por código             ║");
+            System.out.println("║  4. ✏️  Actualizar libro                   ║");
+            System.out.println("║  5. 🗑️  Eliminar libro                    ║");
+            System.out.println("║  6. ↩️  Volver al menú principal           ║");
+            System.out.println("╚════════════════════════════════════════════╝");
+            System.out.print("➡️  Seleccione una opción: ");
+
+            opcion = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    crearLibro();
+                    break;
+                case 2:
+                    listarLibros();
+                    break;
+                case 3:
+                    buscarLibro();
+                    break;
+                case 4:
+                    actualizarLibro();
+                    break;
+                case 5:
+                    eliminarLibro();
+                    break;
+                case 6:
+                    System.out.println("\n↩️  Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("\n❌ Opción no válida.");
+            }
+        } while (opcion != 6);
+    }
+
+    public static void menuPrestamos() {
+        int opcion;
+        do {
+            System.out.println("\n╔════════════════════════════════════════════╗");
+            System.out.println("║         GESTIÓN DE PRÉSTAMOS               ║");
+            System.out.println("╠════════════════════════════════════════════╣");
+            System.out.println("║  1. 📖 Registrar préstamo                  ║");
+            System.out.println("║  2. 🔄 Registrar devolución                ║");
+            System.out.println("║  3. 📋 Listar préstamos activos            ║");
+            System.out.println("║  4. ↩️  Volver al menú principal           ║");
+            System.out.println("╚════════════════════════════════════════════╝");
+            System.out.print("➡️  Seleccione una opción: ");
+
+            opcion = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    registrarPrestamo();
+                    break;
+                case 2:
+                    registrarDevolucion();
+                    break;
+                case 3:
+                    listarPrestamosActivos();
+                    break;
+                case 4:
+                    System.out.println("\n↩️  Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("\n❌ Opción no válida.");
+            }
+        } while (opcion != 4);
     }
 
 }
