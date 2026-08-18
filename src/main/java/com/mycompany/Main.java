@@ -1,5 +1,7 @@
 package com.mycompany;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,6 +9,7 @@ public class Main {
     static ArrayList<Cliente> clientes = new ArrayList<>();
     static ArrayList<Libro> libros = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
+    private static int contadorPrestamos;
 
     public static void main(String[] args) {
         System.out.println("Sistema de Biblioteca - Gestión de Clientes");
@@ -196,5 +199,76 @@ public class Main {
             }
         }
         System.out.println("Libro no encontrado.");
+    }
+
+    public static void registrarPrestamo() {
+        System.out.println("\n--- REGISTRAR PRÉSTAMO ---");
+
+        // Mostrar clientes disponibles
+        if (clientes.isEmpty()) {
+            System.out.println("❌ No hay clientes registrados. Primero registre un cliente.");
+            return;
+        }
+
+        System.out.println("\n--- CLIENTES DISPONIBLES ---");
+        for (Cliente c : clientes) {
+            System.out.println(c);
+        }
+
+        System.out.print("\nIngrese el ID del cliente: ");
+        String idCliente = sc.nextLine();
+        Cliente cliente = null;
+        for (Cliente c : clientes) {
+            if (c.getId().equals(idCliente)) {
+                cliente = c;
+                break;
+            }
+        }
+
+        if (cliente == null) {
+            System.out.println("❌ Cliente no encontrado.");
+            return;
+        }
+
+        // Mostrar libros disponibles
+        System.out.println("\n--- LIBROS DISPONIBLES ---");
+        boolean hayDisponibles = false;
+        for (Libro l : libros) {
+            if (l.isDisponible()) {
+                System.out.println(l);
+                hayDisponibles = true;
+            }
+        }
+
+        if (!hayDisponibles) {
+            System.out.println("❌ No hay libros disponibles para préstamo.");
+            return;
+        }
+
+        System.out.print("\nIngrese el código del libro: ");
+        String codigoLibro = sc.nextLine();
+        Libro libro = null;
+        for (Libro l : libros) {
+            if (l.getCodigo().equals(codigoLibro) && l.isDisponible()) {
+                libro = l;
+                break;
+            }
+        }
+
+        if (libro == null) {
+            System.out.println("❌ Libro no encontrado o no disponible.");
+            return;
+        }
+
+        // Crear el préstamo
+        String idPrestamo = "P" + String.format("%04d", contadorPrestamos++);
+        Prestamo prestamo = new Prestamo(idPrestamo, cliente, libro);
+        prestamo.add(prestamo);
+
+        System.out.println("✅ Préstamo registrado exitosamente.");
+        System.out.println("📋 ID del préstamo: " + idPrestamo);
+        System.out.println("👤 Cliente: " + cliente.getNombre());
+        System.out.println("📖 Libro: " + libro.getTitulo());
+        System.out.println("📅 Fecha de préstamo: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 }
