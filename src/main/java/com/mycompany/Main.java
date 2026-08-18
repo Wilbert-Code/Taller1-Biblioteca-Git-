@@ -264,7 +264,7 @@ public class Main {
 
         String idPrestamo = "P" + String.format("%04d", contadorPrestamos++);
         Prestamo prestamo = new Prestamo(idPrestamo, cliente, libro);
-        //prestamo.add(prestamos);
+        prestamos.add(prestamo);
 
         System.out.println("✅ Préstamo registrado exitosamente.");
         System.out.println("📋 ID del préstamo: " + idPrestamo);
@@ -276,7 +276,6 @@ public class Main {
     public static void registrarDevolucion() {
         System.out.println("\n--- REGISTRAR DEVOLUCIÓN ---");
 
-        // Mostrar préstamos activos
         ArrayList<Prestamo> activos = new ArrayList<>();
         for (Prestamo p : prestamos) {
             if (!p.isDevuelto()) {
